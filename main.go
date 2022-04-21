@@ -18,7 +18,7 @@ func registerHandlers(handler *mux.Router) {
 }
 
 func main() {
-	fmt.Println("Starting server...")
+	fmt.Println("Starting server")
 	handler := mux.NewRouter()
 
 	cart.Clear()

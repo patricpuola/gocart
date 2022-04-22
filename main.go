@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"patricpuola/gocart/api"
-	"patricpuola/gocart/cart"
 
 	"github.com/gorilla/mux"
 )
@@ -20,9 +19,6 @@ func registerHandlers(handler *mux.Router) {
 func main() {
 	fmt.Println("Starting server")
 	handler := mux.NewRouter()
-
-	cart.Clear()
-	fmt.Println("Carts cleared")
 
 	fmt.Println("Registering handlers")
 	registerHandlers(handler)

@@ -1,38 +1,25 @@
 package cartservice
 
-import (
-	"encoding/json"
-	"errors"
-	"fmt"
-)
-
 var shoppingCarts = make([]*ShoppingCart, 0)
 
 func GetAll() []*ShoppingCart {
 	return shoppingCarts
 }
 
-func getCart(cartOwner string) *ShoppingCart {
+func Get(uuid *string) *ShoppingCart {
 	for _, cart := range shoppingCarts {
-		if *&cart.Owner == cartOwner {
+		if *&cart.Uuid == *uuid {
 			return cart
 		}
 	}
 	return nil
 }
 
-func NewCart(owner string) (any, error) {
-	if getCart(owner) != nil {
-		return nil, errors.New("Owner already has a cart")
-	}
-	sc := newShoppingCart(owner)
-	shoppingCarts = append(shoppingCarts, sc)
+func New(customerId int) *ShoppingCart {
+	cart := newShoppingCart(customerId)
+	shoppingCarts = append(shoppingCarts, cart)
 
-	// Debug
-	bytes, _ := json.Marshal(sc)
-	fmt.Println("Created: ", string(bytes))
-
-	return sc, nil
+	return cart
 }
 
 func Clear() {

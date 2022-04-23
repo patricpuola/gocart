@@ -29,6 +29,10 @@ func CartNew(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	customerId, _ := strconv.Atoi(cid)
-	cart := cartservice.New(customerId)
+	cart, err := cartservice.New(customerId)
+	if err != nil {
+		respond(rw, http.StatusBadRequest, Response{err.Error()})
+		return
+	}
 	respond(rw, http.StatusOK, cart)
 }

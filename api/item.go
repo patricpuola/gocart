@@ -11,7 +11,11 @@ func ItemIndex(rw http.ResponseWriter, req *http.Request) {
 
 func ItemNew(rw http.ResponseWriter, req *http.Request) {
 	item := itemservice.MockItem()
-	itemservice.CatalogAdd(item)
+	err := itemservice.CatalogAdd(item)
+	if err != nil {
+		respond(rw, http.StatusConflict, Response{err.Error()})
+		return
+	}
 	respond(rw, http.StatusOK, item)
 }
 

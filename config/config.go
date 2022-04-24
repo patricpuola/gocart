@@ -9,7 +9,7 @@ const VERBOSE = 1
 const VERY_VERBOSE = 2
 
 var Config map[string]string
-var Verbosity int = NOT_VERBOSE
+var verbosity int = NOT_VERBOSE
 
 func GetInt(key string) int {
 	value := Config[key]
@@ -29,10 +29,14 @@ func IsProd() bool {
 	return Config["env"] == "prod"
 }
 
+func SetVerbosity(verbosityLevel int) {
+	verbosity = verbosityLevel
+}
+
 func IsVerbose() bool {
-	return Verbosity >= VERBOSE
+	return verbosity >= VERBOSE
 }
 
 func IsVeryVerbose() bool {
-	return Verbosity >= VERY_VERBOSE
+	return verbosity >= VERY_VERBOSE
 }

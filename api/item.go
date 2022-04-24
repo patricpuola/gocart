@@ -3,6 +3,7 @@ package api
 import (
 	"net/http"
 	"patricpuola/gocart/itemservice"
+	"patricpuola/gocart/util"
 )
 
 func ItemIndex(rw http.ResponseWriter, req *http.Request) {
@@ -10,7 +11,7 @@ func ItemIndex(rw http.ResponseWriter, req *http.Request) {
 }
 
 func ItemNew(rw http.ResponseWriter, req *http.Request) {
-	item := itemservice.MockItem()
+	item := util.MockItem()
 	err := itemservice.CatalogAdd(item)
 	if err != nil {
 		respond(rw, http.StatusConflict, Response{err.Error()})

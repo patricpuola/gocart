@@ -15,15 +15,18 @@ import (
 const regexCustomerId string = "[0-9]+"
 const regexUuid string = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
 
+var Populate *bool
+
 func loadFlags() {
 	verbose := flag.Bool("v", false, "Verbose server output")
 	very_verbose := flag.Bool("vv", false, "Very verbose server output")
+	Populate = flag.Bool("populate", false, "Populate service with carts and items on startup")
 	flag.Parse()
 
 	if *very_verbose {
-		config.Verbosity = config.VERY_VERBOSE
+		config.SetVerbosity(config.VERY_VERBOSE)
 	} else if *verbose {
-		config.Verbosity = config.VERBOSE
+		config.SetVerbosity(config.VERBOSE)
 	}
 }
 
@@ -55,6 +58,12 @@ func loadConfig() error {
 	return nil
 }
 
+func postSetup() {
+	if *Populate {
+		util.Populate()
+	}
+}
+
 func registerHandlers(handler *mux.Router) {
 	handler.StrictSlash(true)
 
@@ -73,6 +82,7 @@ func registerHandlers(handler *mux.Router) {
 func main() {
 	loadFlags()
 	loadConfig()
+	postSetup()
 
 	fmt.Println("Starting server")
 	handler := mux.NewRouter()

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math/rand"
 	"patricpuola/gocart/cartservice"
-	"patricpuola/gocart/config"
 	"patricpuola/gocart/itemservice"
 	"strconv"
 
@@ -17,25 +16,19 @@ const populate_count_carts = 4
 // For trying out the service
 // Fill out empty service with carts and items
 func Populate() {
-	if config.IsVerbose() {
-		fmt.Println("Populating items")
-	}
+
+	PrintVerbose("Populating items")
+
 	for i := range make([]int, populate_count_items) {
 		itemservice.CatalogAdd(MockItem())
-		if config.IsVeryVerbose() {
-			fmt.Printf("Item %d added\n", i)
-		}
+		PrintVeryVerbose(fmt.Sprintf("Item %d added\n", i))
 	}
 
-	if config.IsVerbose() {
-		fmt.Println("Populating carts")
-	}
+	PrintVerbose("Populating carts")
 
 	for i := range make([]int, populate_count_carts) {
 		MockCart()
-		if config.IsVeryVerbose() {
-			fmt.Printf("Cart %d added\n", i)
-		}
+		PrintVeryVerbose(fmt.Sprintf("Cart %d added\n", i))
 		// todo: add items to carts
 	}
 }

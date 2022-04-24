@@ -7,7 +7,7 @@ import (
 
 func PrettyPrintMap(stringMap map[string]string, indent string) {
 	var maxLenKey int
-	for k, _ := range stringMap {
+	for k := range stringMap {
 		if len(k) > maxLenKey {
 			maxLenKey = len(k)
 		}

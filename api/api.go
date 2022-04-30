@@ -5,11 +5,12 @@ import (
 	"net/http"
 )
 
-// Generic Response
+// Common JSON response struct
 type Response struct {
 	Response string
 }
 
+// Common JSON error struct
 type ErrorResponse struct {
 	Error string
 }

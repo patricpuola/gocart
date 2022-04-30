@@ -6,6 +6,7 @@ import (
 	"patricpuola/gocart/cartservice"
 	"patricpuola/gocart/config"
 	"patricpuola/gocart/itemservice"
+	"patricpuola/gocart/util"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -24,9 +25,7 @@ func CartIndex(rw http.ResponseWriter, req *http.Request) {
 }
 
 func CartClear(rw http.ResponseWriter, req *http.Request) {
-	if config.IsVeryVerbose() {
-		fmt.Println("Carts cleared")
-	}
+	util.PrintVeryVerbose("Carts cleared")
 	respond(rw, http.StatusOK, Response{"OK"})
 }
 

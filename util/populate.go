@@ -39,11 +39,12 @@ func MockCart() *cartservice.ShoppingCart {
 }
 
 func MockItem() *itemservice.Item {
-	car := faker.New().Car()
-	price, _ := strconv.ParseFloat(faker.New().Numerify("#####.##"), 32)
+	fkr := faker.NewWithSeed(rand.NewSource(rand.Int63()))
+	car := fkr.Car()
+	price, _ := strconv.ParseFloat(fkr.Numerify("#####.##"), 32)
 	item := itemservice.New(
-		faker.Car.Maker(car)+" "+faker.Car.Model(car),
-		faker.New().Numerify("#############"),
+		car.Maker()+" "+car.Model(),
+		strconv.Itoa(fkr.RandomNumber(13)),
 		float32(price),
 	)
 	return item

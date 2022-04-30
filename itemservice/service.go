@@ -11,13 +11,13 @@ func GetAll() []*Item {
 	return itemCatalog
 }
 
-func Get(productId string) *Item {
+func Get(productId *string) (item *Item, itemFound bool) {
 	for _, item := range itemCatalog {
-		if item.ProductId == productId {
-			return item
+		if item.ProductId == *productId {
+			return item, true
 		}
 	}
-	return nil
+	return nil, false
 }
 
 func CatalogAdd(item *Item) error {

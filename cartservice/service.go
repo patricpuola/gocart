@@ -11,13 +11,13 @@ func GetAll() []*ShoppingCart {
 	return shoppingCarts
 }
 
-func Get(uuid *string) *ShoppingCart {
+func Get(uuid *string) (cart *ShoppingCart, cartFound bool) {
 	for _, cart := range shoppingCarts {
 		if *&cart.Uuid == *uuid {
-			return cart
+			return cart, true
 		}
 	}
-	return nil
+	return nil, false
 }
 
 func New(customerId int) (*ShoppingCart, error) {

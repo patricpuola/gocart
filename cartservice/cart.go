@@ -1,6 +1,8 @@
 package cartservice
 
 import (
+	"errors"
+	"fmt"
 	"patricpuola/gocart/itemservice"
 	"time"
 
@@ -40,19 +42,17 @@ func getItemCartRowIndex(cart *ShoppingCart, item itemservice.Item) (idx int, fo
 	return idx, found
 }
 
-func AddItem(uuid string, item itemservice.Item) {
-	cart := Get(&uuid)
-	idx, itemfound := getItemCartRowIndex(cart, item)
-	if itemfound {
+func (cart *ShoppingCart) AddItem(item itemservice.Item) {
+	if idx, itemfound := getItemCartRowIndex(cart, item); itemfound {
 		cart.Contents[idx].Quantity++
 	} else {
 		cartRow := newCartRow(item, 1)
 		cart.Contents = append(cart.Contents, *cartRow)
 	}
+	fmt.Println(cart)
 }
 
-func RemoveItem(uuid string, item itemservice.Item) {
-	cart := Get(&uuid)
+func (cart *ShoppingCart) RemoveItem(item itemservice.Item) error {
 	idx, itemFound := getItemCartRowIndex(cart, item)
 	if itemFound {
 		if cart.Contents[idx].Quantity == 1 {
@@ -61,7 +61,12 @@ func RemoveItem(uuid string, item itemservice.Item) {
 		} else {
 			cart.Contents[idx].Quantity--
 		}
+		return nil
 	} else {
-		// item does not exist
+		return errors.New("Item is not in the cart")
 	}
+}
+
+func (cart ShoppingCart) Empty() {
+	cart.Contents = make([]CartRow, 0)
 }

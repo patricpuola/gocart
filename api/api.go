@@ -10,6 +10,10 @@ type Response struct {
 	Response string
 }
 
+type ErrorResponse struct {
+	Error string
+}
+
 func Index(rw http.ResponseWriter, req *http.Request) {
 	respond(rw, http.StatusOK, Response{"OK"})
 }

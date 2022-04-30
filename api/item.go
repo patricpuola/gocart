@@ -14,7 +14,7 @@ func ItemNew(rw http.ResponseWriter, req *http.Request) {
 	item := util.MockItem()
 	err := itemservice.CatalogAdd(item)
 	if err != nil {
-		respond(rw, http.StatusConflict, Response{err.Error()})
+		respond(rw, http.StatusConflict, ErrorResponse{err.Error()})
 		return
 	}
 	respond(rw, http.StatusOK, item)

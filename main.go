@@ -73,6 +73,8 @@ func registerHandlers(handler *mux.Router) {
 	handler.HandleFunc(fmt.Sprintf("/cart/new/{cid:%s}", regexCustomerId), api.CartNew).Methods("GET")
 	handler.HandleFunc("/cart/clear/", api.CartClear).Methods("GET")
 	handler.HandleFunc(fmt.Sprintf("/cart/{uuid:%s}", regexUuid), api.CartIndex).Methods("GET")
+	handler.HandleFunc(fmt.Sprintf("/cart/{uuid:%s}/item/add/{productId}", regexUuid), api.CartAddItem).Methods("GET")
+	handler.HandleFunc(fmt.Sprintf("/cart/{uuid:%s}/item/remove/{productId}", regexUuid), api.CartRemoveItem).Methods("GET")
 
 	handler.HandleFunc("/item/", api.ItemIndex).Methods("GET")
 	handler.HandleFunc("/item/new/", api.ItemNew).Methods("GET")
